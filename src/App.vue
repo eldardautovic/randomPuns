@@ -30,7 +30,6 @@ export default {
     axios({
       method: "get",
       url: "https://projects-eldar.herokuapp.com/projects/random",
-      timeout: 10000,
       headers: {
         "Content-Type": "application/json"
       }
@@ -40,7 +39,7 @@ export default {
         console.log(this.fact);
       })
       .catch(err => {
-        console.log("err", err);
+        console.log(err);
         this.fact = {
           title: "",
           description: "There was a problem handling your request."
@@ -57,7 +56,6 @@ export default {
       axios({
         method: "get",
         url: "https://projects-eldar.herokuapp.com/projects/random",
-        timeout: 10000, // Wait for 5 seconds
         headers: {
           "Content-Type": "application/json"
         }
@@ -67,7 +65,7 @@ export default {
           console.log(this.fact);
         })
         .catch(err => {
-          console.log("err", err);
+          console.log(err);
           this.fact = {
             title: "",
             description: "There was a problem handling your request."
