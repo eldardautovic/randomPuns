@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <h1>Random programmer puns</h1>
-    <div class="text" v-if="facts.length > 0">
-      <h2 @click="generator">{{ facts[array].title }}</h2>
-      <p>{{ facts[array].description }}</p>
+    <div class="text">
+      <h2 @click="generator">{{ fact.title }}</h2>
+      <p>{{ fact.description }}</p>
     </div>
     <a href="https://github.com/SalesmanUnknown">
       <i class="fab fa-github"></i>
@@ -18,9 +18,8 @@ export default {
   name: "App",
   data() {
     return {
-      facts: [],
-      mycolor: "#" + ((Math.random() * 0xffffff) << 0).toString(16),
-      array: 0
+      fact: {},
+      mycolor: "#" + ((Math.random() * 0xffffff) << 0).toString(16)
     };
   },
   components: {},
@@ -29,18 +28,23 @@ export default {
   },
   beforeMount() {
     axios
-      .get("https://projects-eldar.herokuapp.com/projects")
+      .get("https://projects-eldar.herokuapp.com/projects/random")
       .then(response => {
-        this.facts = response.data;
-        console.log(this.facts);
+        this.fact = response.data;
+        console.log(this.fact);
       });
   },
   methods: {
     generator: function() {
       this.mycolor = "#" + ((Math.random() * 0xffffff) << 0).toString(16);
       document.body.style.background = this.mycolor;
-      if (this.array < this.facts.length - 1) this.array++;
-      else this.array = 0;
+
+      axios
+        .get("https://projects-eldar.herokuapp.com/projects/random")
+        .then(response => {
+          this.fact = response.data;
+          console.log(this.fact);
+        });
     }
   }
 };
