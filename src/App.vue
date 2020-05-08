@@ -27,10 +27,25 @@ export default {
     document.body.style.background = this.mycolor;
   },
   beforeMount() {
-    axios
-      .get("https://projects-eldar.herokuapp.com/projects/random")
+    axios({
+      method: "get",
+      url: "https://projects-eldar.herokuapp.com/projects/random",
+      timeout: 10000,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
       .then(response => {
         this.fact = response.data;
+        console.log(this.fact);
+      })
+      .catch(err => {
+        console.log("err", err);
+        this.fact = {
+          title: "",
+          description: "There was a problem handling your request."
+        };
+
         console.log(this.fact);
       });
   },
@@ -39,10 +54,25 @@ export default {
       this.mycolor = "#" + ((Math.random() * 0xffffff) << 0).toString(16);
       document.body.style.background = this.mycolor;
 
-      axios
-        .get("https://projects-eldar.herokuapp.com/projects/random")
+      axios({
+        method: "get",
+        url: "https://projects-eldar.herokuapp.com/projects/random",
+        timeout: 10000, // Wait for 5 seconds
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
         .then(response => {
           this.fact = response.data;
+          console.log(this.fact);
+        })
+        .catch(err => {
+          console.log("err", err);
+          this.fact = {
+            title: "",
+            description: "There was a problem handling your request."
+          };
+
           console.log(this.fact);
         });
     }
